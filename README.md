@@ -64,6 +64,9 @@ tokenIDs = encode(bartpho_word, sentence)
 last_layer_features = bartpho_word.extract_features(tokenIDs)
 ```
 
+- For `BARTpho-word`, users might want to [use VnCoreNLP's word segmenter to pre-process input raw texts](https://github.com/VinAIResearch/PhoBERT#vncorenlp) as it is used to perform word segmentation on the pre-training corpus. 
+
+
 ## <a name="fairseq"></a> Using BARTpho in [`transformers`](https://github.com/huggingface/transformers)
 
 To be updated soon!
