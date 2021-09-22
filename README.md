@@ -17,6 +17,14 @@ The general architecture and experimental results of BARTpho can be found in our
 
 ## <a name="fairseq"></a> Using BARTpho in [`fairseq`](https://github.com/pytorch/fairseq)
 
+### Installation
+
+There is an issue w.r.t. the `encode` function in the BART hub_interface, as discussed in this pull request [https://github.com/pytorch/fairseq/pull/3905](https://github.com/pytorch/fairseq/pull/3905). While waiting for this pull request's approval, please install `fairseq` as follows:
+
+	git clone https://github.com/datquocnguyen/fairseq.git
+	cd fairseq
+	pip install --editable ./
+
 ### Pre-trained models
 
 Model | #params | Download | Input text
@@ -31,15 +39,6 @@ Model | #params | Download | Input text
 
 ```python
 from fairseq.models.bart import BARTModel  
- 
-#Encode an input text: OOV tokens are converted into <unk>
-def encode(fairseq_hub, sentence):  
-    tokens = fairseq_hub.bpe.encode(sentence)  
-    if len(tokens.split(" ")) > fairseq_hub.max_positions - 2:  
-        tokens = " ".join(tokens.split(" ")[: fairseq_hub.max_positions - 2])  
-    bpe_sentence = "<s> " + tokens + " </s>"
-    tokens = fairseq_hub.task.source_dictionary.encode_line(bpe_sentence, append_eos=False, add_if_not_exist=False)  
-    return tokens.long()
 
 #Load BARTpho-syllable model:  
 model_folder_path = '/PATH-TO-FOLDER/fairseq-bartpho-syllable/'  
@@ -48,7 +47,7 @@ bartpho_syllable = BARTModel.from_pretrained(model_folder_path, checkpoint_file=
 #Input syllable-level/raw text:  
 sentence = 'Chúng tôi là những nghiên cứu viên.'  
 #Apply SentencePiece to the input text
-tokenIDs = encode(bartpho_syllable, sentence)
+tokenIDs = bartpho_syllable.encode(sentence, add_if_not_exist=False)
 #Extract features from BARTpho-syllable
 last_layer_features = bartpho_syllable.extract_features(tokenIDs)
 
@@ -59,7 +58,7 @@ bartpho_word = BARTModel.from_pretrained(model_folder_path, checkpoint_file='mod
 #Input word-level text:  
 sentence = 'Chúng_tôi là những nghiên_cứu_viên .'  
 #Apply BPE to the input text
-tokenIDs = encode(bartpho_word, sentence)
+tokenIDs = bartpho_word.encode(sentence, add_if_not_exist=False)
 #Extract features from BARTpho-word
 last_layer_features = bartpho_word.extract_features(tokenIDs)
 ```
