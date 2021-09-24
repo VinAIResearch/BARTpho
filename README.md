@@ -29,8 +29,8 @@ There is an issue w.r.t. the `encode` function in the BART hub_interface, as dis
 
 Model | #params | Download | Input text
 ---|---|---|---
-`BARTpho-syllable` | 396M | [fairseq-bartpho-syllable.zip](https://drive.google.com/file/d/1iw44DztS03JyVP9IcJx0Jh2q_3Y63oio/view?usp=sharing) | Syllable level
-`BARTpho-word` | 420M | [fairseq-bartpho-word.zip](https://drive.google.com/file/d/1j23nCYQlqwwFQPpcwiogfZ9VHDHIO0UD/view?usp=sharing) | Word level
+BARTpho-syllable | 396M | [fairseq-bartpho-syllable.zip](https://drive.google.com/file/d/1iw44DztS03JyVP9IcJx0Jh2q_3Y63oio/view?usp=sharing) | Syllable level
+BARTpho-word | 420M | [fairseq-bartpho-word.zip](https://drive.google.com/file/d/1j23nCYQlqwwFQPpcwiogfZ9VHDHIO0UD/view?usp=sharing) | Word level
 
 - `unzip fairseq-bartpho-syllable.zip`
 - `unzip fairseq-bartpho-word.zip`
@@ -67,7 +67,35 @@ last_layer_features = bartpho_word.extract_features(tokenIDs)
 
 ## <a name="fairseq"></a> Using BARTpho in [`transformers`](https://github.com/huggingface/transformers)
 
-To be updated soon!
+### Pre-trained models
+
+Model | #params | Input text
+---|---|---
+`vinai/bartpho-syllable` | 396M | Syllable level
+`vinai/bartpho-word` | 420M | Word level
+
+### Example usage
+
+```python3
+import torch
+from transformers import AutoModel, AutoTokenizer
+
+#BARTpho-syllable
+import bartpho_utils #Download and save our "bartpho_utils.py" file into your working folder
+syllable_tokenizer = bartpho_utils.adjustVocab(AutoTokenizer.from_pretrained("xlm-roberta-base", use_fast=False))
+bartpho_syllable = AutoModel.from_pretrained("vinai/bartpho-syllable")
+sentence = 'Chúng tôi là những nghiên cứu viên.'  
+tokenIDs = torch.tensor([syllable_tokenizer.encode(sentence)])
+last_layer_features = bartpho_syllable(tokenIDs)[0]
+
+#BARTpho-word
+word_tokenizer = AutoTokenizer.from_pretrained("vinai/bartpho-word", use_fast=False)
+bartpho_word = AutoModel.from_pretrained("vinai/bartpho-word")
+sentence = 'Chúng_tôi là những nghiên_cứu_viên .'  
+tokenIDs = torch.tensor([word_tokenizer.encode(sentence)])
+last_layer_features = bartpho_word(tokenIDs)[0]
+
+```
 
 ## Notes
 
