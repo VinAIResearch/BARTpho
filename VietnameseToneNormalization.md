@@ -1,4 +1,7 @@
 ```python3
+# coding=utf-8
+# Copyright (c) 2021 VinAI Research
+
 dict_map = {
     "òa": "oà",
     "Òa": "Oà",
