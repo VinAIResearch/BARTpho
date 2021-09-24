@@ -40036,6 +40036,7 @@ bartpho_syllable_vocab = {
     "[tr_TR]": 40026,
     "[vi_VN]": 40027,
     "[zh_CN]": 40028,
+    "<mask>": 40029,
 }
 
 
