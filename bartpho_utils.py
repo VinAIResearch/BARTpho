@@ -40043,9 +40043,9 @@ bartpho_syllable_vocab = {
 def adjustVocab(tokenizer: Union[AutoTokenizer, XLMRobertaTokenizer]):
     vocab = tokenizer.get_vocab()
     for word, index in vocab.items():
-        if word in bartpho_syllable_vocab:
-            continue
-        else:
+        if word not in bartpho_syllable_vocab:
             bartpho_syllable_vocab[word] = bartpho_syllable_vocab["<unk>"]
     tokenizer.fairseq_tokens_to_ids = bartpho_syllable_vocab
+    tokenizer.fairseq_ids_to_tokens = {v: k for k, v in tokenizer.fairseq_tokens_to_ids.items()}
+    tokenizer.fairseq_ids_to_tokens[tokenizer.fairseq_tokens_to_ids["<unk>"]] = "<unk>"
     return tokenizer
