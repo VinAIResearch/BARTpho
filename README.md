@@ -78,11 +78,11 @@ Model | #params | Input text
 
 ```python3
 import torch
-from transformers import AutoModel, AutoTokenizer
+from transformers import AutoModel, AutoTokenizer, XLMRobertaTokenizer
 
 #BARTpho-syllable
 import bartpho_utils #Download and save our "bartpho_utils.py" file into your working folder
-syllable_tokenizer = bartpho_utils.adjustVocab(AutoTokenizer.from_pretrained("xlm-roberta-base", use_fast=False))
+syllable_tokenizer = bartpho_utils.adjustVocab(XLMRobertaTokenizer.from_pretrained("vinai/bartpho-syllable"))
 bartpho_syllable = AutoModel.from_pretrained("vinai/bartpho-syllable")
 sentence = 'Chúng tôi là những nghiên cứu viên.'  
 tokenIDs = torch.tensor([syllable_tokenizer.encode(sentence)])
