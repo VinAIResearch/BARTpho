@@ -1,7 +1,7 @@
 #### Table of contents
 1. [Introduction](#introduction)
-2. [Using PhoBERT with `fairseq`](#fairseq)
-3. [Using PhoBERT with `transformers`](#transformers)
+2. [Using BARTpho with `fairseq`](#fairseq)
+3. [Using BARTpho with `transformers`](#transformers)
 5. [Notes](#notes)
 
 # <a name="introduction"></a> BARTpho: Pre-trained Sequence-to-Sequence Models for Vietnamese
