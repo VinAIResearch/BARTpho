@@ -87,7 +87,9 @@ import torch
 from transformers import AutoModel, AutoTokenizer, XLMRobertaTokenizer
 
 #BARTpho-syllable
-import bartpho_utils #Download and save our "bartpho_utils.py" file into your working folder
+#Download and save our "bartpho_utils.py" file into your working folder. 
+#This will be soon replaced by syllable_tokenizer = AutoTokenizer.from_pretrained("vinai/bartpho-syllable", use_fast=False) when [the pull request](https://github.com/huggingface/transformers/pull/13788) to integrate BartphoTokenizer into huggingface's transformers is merged.
+import bartpho_utils 
 syllable_tokenizer = bartpho_utils.adjustVocab(XLMRobertaTokenizer.from_pretrained("vinai/bartpho-syllable"))
 bartpho_syllable = AutoModel.from_pretrained("vinai/bartpho-syllable")
 sentence = 'Chúng tôi là những nghiên cứu viên.'  
@@ -102,6 +104,7 @@ tokenIDs = torch.tensor([word_tokenizer.encode(sentence)])
 last_layer_features = bartpho_word(tokenIDs)[0]
 
 ```
+
 
 ## <a name="notes"></a> Notes
 
