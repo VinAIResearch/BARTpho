@@ -1,4 +1,10 @@
-# BARTpho: Pre-trained Sequence-to-Sequence Models for Vietnamese
+#### Table of contents
+1. [Introduction](#introduction)
+2. [Using PhoBERT with `fairseq`](#fairseq)
+3. [Using PhoBERT with `transformers`](#transformers)
+5. [Notes](#notes)
+
+# <a name="introduction"></a> BARTpho: Pre-trained Sequence-to-Sequence Models for Vietnamese
 
 
 Two BARTpho versions `BARTpho-syllable` and `BARTpho-word` are the first public large-scale monolingual sequence-to-sequence models pre-trained for Vietnamese. BARTpho uses the "large" architecture and pre-training scheme of the sequence-to-sequence denoising model [BART](https://github.com/pytorch/fairseq/tree/main/examples/bart), thus especially suitable for generative NLP tasks. Experiments on a downstream task of Vietnamese text summarization show that in both automatic and human evaluations, BARTpho outperforms the strong baseline [mBART](https://github.com/pytorch/fairseq/tree/main/examples/mbart) and improves the state-of-the-art.
@@ -65,7 +71,7 @@ last_layer_features = bartpho_word.extract_features(tokenIDs)
 
 
 
-## <a name="fairseq"></a> Using BARTpho in [`transformers`](https://github.com/huggingface/transformers)
+## <a name="transformers"></a> Using BARTpho in [`transformers`](https://github.com/huggingface/transformers)
 
 ### Pre-trained models
 
@@ -97,7 +103,7 @@ last_layer_features = bartpho_word(tokenIDs)[0]
 
 ```
 
-## Notes
+## <a name="notes"></a> Notes
 
 -  Before fine-tuning BARTpho on a downstream task, users should perform Vietnamese tone normalization on the downstream task's data as this pre-process was also applied to the pre-training corpus. A Python script for Vietnamese tone normalization is available at [HERE](https://github.com/VinAIResearch/BARTpho/blob/main/VietnameseToneNormalization.md).
 - For `BARTpho-word`, users should [use VnCoreNLP to segment input raw texts](https://github.com/VinAIResearch/PhoBERT#vncorenlp) as it was used to perform both Vietnamese tone normalization and word segmentation on the pre-training corpus. 
