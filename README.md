@@ -92,19 +92,39 @@ from transformers import AutoModel, AutoTokenizer, XLMRobertaTokenizer
 import bartpho_utils 
 syllable_tokenizer = bartpho_utils.adjustVocab(XLMRobertaTokenizer.from_pretrained("vinai/bartpho-syllable"))
 bartpho_syllable = AutoModel.from_pretrained("vinai/bartpho-syllable")
-sentence = 'Chúng tôi là những nghiên cứu viên.'  
-tokenIDs = torch.tensor([syllable_tokenizer.encode(sentence)])
-last_layer_features = bartpho_syllable(tokenIDs)[0]
+TXT = 'Chúng tôi là những nghiên cứu viên.'  
+input_ids = syllable_tokenizer(TXT, return_tensors='pt')['input_ids']
+features = bartpho_syllable(input_ids)
+
+from transformers import MBartForConditionalGeneration
+bartpho_syllable = MBartForConditionalGeneration.from_pretrained("vinai/bartpho-syllable")
+TXT = 'Chúng tôi là <mask> nghiên cứu viên.'
+input_ids = syllable_tokenizer(TXT, return_tensors='pt')['input_ids']
+logits = bartpho_syllable(input_ids).logits
+masked_index = (input_ids[0] == syllable_tokenizer.mask_token_id).nonzero().item()
+probs = logits[0, masked_index].softmax(dim=0)
+values, predictions = probs.topk(5)
+print(syllable_tokenizer.decode(predictions).split())
 
 #BARTpho-word
 word_tokenizer = AutoTokenizer.from_pretrained("vinai/bartpho-word", use_fast=False)
 bartpho_word = AutoModel.from_pretrained("vinai/bartpho-word")
-sentence = 'Chúng_tôi là những nghiên_cứu_viên .'  
-tokenIDs = torch.tensor([word_tokenizer.encode(sentence)])
-last_layer_features = bartpho_word(tokenIDs)[0]
+TXT = 'Chúng_tôi là những nghiên_cứu_viên .'  
+input_ids = word_tokenizer(TXT, return_tensors='pt')['input_ids']
+features = bartpho_word(input_ids)
+
+bartpho_word = MBartForConditionalGeneration.from_pretrained("vinai/bartpho-word")
+TXT = 'Chúng_tôi là những <mask> .'
+input_ids = word_tokenizer(TXT, return_tensors='pt')['input_ids']
+logits = bartpho_word(input_ids).logits
+masked_index = (input_ids[0] == word_tokenizer.mask_token_id).nonzero().item()
+probs = logits[0, masked_index].softmax(dim=0)
+values, predictions = probs.topk(5)
+print(word_tokenizer.decode(predictions).split())
 
 ```
 
+- Following mBART, BARTpho uses the "large" architecture of BART with an additional layer-normalization layer on top of both the encoder and decoder. Thus, when converted to be used with `transformers`, BARTpho can be called via mBART-based classes.
 
 ## <a name="notes"></a> Notes
 
