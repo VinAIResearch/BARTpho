@@ -73,6 +73,12 @@ last_layer_features = bartpho_word.extract_features(tokenIDs)
 
 ## <a name="transformers"></a> Using BARTpho in [`transformers`](https://github.com/huggingface/transformers)
 
+### Installation
+
+	git clone https://github.com/huggingface/transformers.git
+	cd transformers
+	pip install -e .
+
 ### Pre-trained models
 
 Model | #params | Input text
@@ -84,13 +90,10 @@ Model | #params | Input text
 
 ```python3
 import torch
-from transformers import AutoModel, AutoTokenizer, XLMRobertaTokenizer
+from transformers import AutoModel, AutoTokenizer
 
 #BARTpho-syllable
-#Download and save our "bartpho_utils.py" file into your working folder. 
-#This will be soon replaced by syllable_tokenizer = AutoTokenizer.from_pretrained("vinai/bartpho-syllable", use_fast=False) when [the pull request](https://github.com/huggingface/transformers/pull/13788) to integrate BartphoTokenizer into huggingface's transformers is merged.
-import bartpho_utils 
-syllable_tokenizer = bartpho_utils.adjustVocab(XLMRobertaTokenizer.from_pretrained("vinai/bartpho-syllable"))
+syllable_tokenizer = AutoTokenizer.from_pretrained("vinai/bartpho-syllable", use_fast=False)
 bartpho_syllable = AutoModel.from_pretrained("vinai/bartpho-syllable")
 TXT = 'Chúng tôi là những nghiên cứu viên.'  
 input_ids = syllable_tokenizer(TXT, return_tensors='pt')['input_ids']
