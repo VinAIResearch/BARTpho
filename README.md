@@ -75,9 +75,14 @@ last_layer_features = bartpho_word.extract_features(tokenIDs)
 
 ### Installation
 
-	git clone https://github.com/huggingface/transformers.git
-	cd transformers
-	pip install -e .
+- Installation with pip (v4.12+): `pip install transformers`
+- Installing from source:
+
+```
+git clone https://github.com/huggingface/transformers.git
+cd transformers
+pip install -e .
+```
 
 ### Pre-trained models
 
