@@ -74,15 +74,17 @@ last_layer_features = bartpho_word.extract_features(tokenIDs)
 ## <a name="transformers"></a> Using BARTpho in [`transformers`](https://github.com/huggingface/transformers)
 
 ### Installation
-
-- Installation with pip (v4.12+): `pip install transformers`
-- Installing from source:
+- Install `transformers` (v4.12+) with pip: `pip install transformers`
+- Or install `transformers` from source:
 
 ```
-git clone https://github.com/huggingface/transformers.git
-cd transformers
-pip install -e .
+	git clone https://github.com/huggingface/transformers.git
+	cd transformers
+	pip install -e .
 ```
+
+- Install `sentencepiece` with pip: `pip install sentencepiece`
+
 
 ### Pre-trained models
 
