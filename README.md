@@ -1,8 +1,8 @@
 #### Table of contents
 1. [Introduction](#introduction)
-2. [Using BARTpho with `fairseq`](#fairseq)
-3. [Using BARTpho with `transformers`](#transformers)
-5. [Notes](#notes)
+2. [Using BARTpho with `transformers`](#transformers)
+3. [Using BARTpho with `fairseq`](#fairseq)
+4. [Notes](#notes)
 
 # <a name="introduction"></a> BARTpho: Pre-trained Sequence-to-Sequence Models for Vietnamese
 
@@ -20,55 +20,6 @@ The general architecture and experimental results of BARTpho can be found in our
 	}
 
 **Please CITE** our paper when BARTpho is used to help produce published results or incorporated into other software.
-
-## <a name="fairseq"></a> Using BARTpho in [`fairseq`](https://github.com/pytorch/fairseq)
-
-### Installation
-
-There is an issue w.r.t. the `encode` function in the BART hub_interface, as discussed in this pull request [https://github.com/pytorch/fairseq/pull/3905](https://github.com/pytorch/fairseq/pull/3905). While waiting for this pull request's approval, please install `fairseq` as follows:
-
-	git clone https://github.com/datquocnguyen/fairseq.git
-	cd fairseq
-	pip install --editable ./
-
-### Pre-trained models
-
-Model | #params | Download | Input text
----|---|---|---
-BARTpho-syllable | 396M | [fairseq-bartpho-syllable.zip](https://drive.google.com/file/d/1iw44DztS03JyVP9IcJx0Jh2q_3Y63oio/view?usp=sharing) | Syllable level
-BARTpho-word | 420M | [fairseq-bartpho-word.zip](https://drive.google.com/file/d/1j23nCYQlqwwFQPpcwiogfZ9VHDHIO0UD/view?usp=sharing) | Word level
-
-- `unzip fairseq-bartpho-syllable.zip`
-- `unzip fairseq-bartpho-word.zip`
-
-### Example usage
-
-```python
-from fairseq.models.bart import BARTModel  
-
-#Load BARTpho-syllable model:  
-model_folder_path = '/PATH-TO-FOLDER/fairseq-bartpho-syllable/'  
-spm_model_path = '/PATH-TO-FOLDER/fairseq-bartpho-syllable/sentence.bpe.model'  
-bartpho_syllable = BARTModel.from_pretrained(model_folder_path, checkpoint_file='model.pt', bpe='sentencepiece', sentencepiece_model=spm_model_path).eval()
-#Input syllable-level/raw text:  
-sentence = 'Chúng tôi là những nghiên cứu viên.'  
-#Apply SentencePiece to the input text
-tokenIDs = bartpho_syllable.encode(sentence, add_if_not_exist=False)
-#Extract features from BARTpho-syllable
-last_layer_features = bartpho_syllable.extract_features(tokenIDs)
-
-##Load BARTpho-word model:  
-model_folder_path = '/PATH-TO-FOLDER/fairseq-bartpho-word/'  
-bpe_codes_path = '/PATH-TO-FOLDER/fairseq-bartpho-word/bpe.codes'  
-bartpho_word = BARTModel.from_pretrained(model_folder_path, checkpoint_file='model.pt', bpe='fastbpe', bpe_codes=bpe_codes_path).eval()
-#Input word-level text:  
-sentence = 'Chúng_tôi là những nghiên_cứu_viên .'  
-#Apply BPE to the input text
-tokenIDs = bartpho_word.encode(sentence, add_if_not_exist=False)
-#Extract features from BARTpho-word
-last_layer_features = bartpho_word.extract_features(tokenIDs)
-```
-
 
 
 ## <a name="transformers"></a> Using BARTpho in [`transformers`](https://github.com/huggingface/transformers)
@@ -135,6 +86,55 @@ print(word_tokenizer.decode(predictions).split())
 ```
 
 - Following mBART, BARTpho uses the "large" architecture of BART with an additional layer-normalization layer on top of both the encoder and decoder. Thus, when converted to be used with `transformers`, BARTpho can be called via mBART-based classes.
+
+
+## <a name="fairseq"></a> Using BARTpho in [`fairseq`](https://github.com/pytorch/fairseq)
+
+### Installation
+
+There is an issue w.r.t. the `encode` function in the BART hub_interface, as discussed in this pull request [https://github.com/pytorch/fairseq/pull/3905](https://github.com/pytorch/fairseq/pull/3905). While waiting for this pull request's approval, please install `fairseq` as follows:
+
+	git clone https://github.com/datquocnguyen/fairseq.git
+	cd fairseq
+	pip install --editable ./
+
+### Pre-trained models
+
+Model | #params | Download | Input text
+---|---|---|---
+BARTpho-syllable | 396M | [fairseq-bartpho-syllable.zip](https://drive.google.com/file/d/1iw44DztS03JyVP9IcJx0Jh2q_3Y63oio/view?usp=sharing) | Syllable level
+BARTpho-word | 420M | [fairseq-bartpho-word.zip](https://drive.google.com/file/d/1j23nCYQlqwwFQPpcwiogfZ9VHDHIO0UD/view?usp=sharing) | Word level
+
+- `unzip fairseq-bartpho-syllable.zip`
+- `unzip fairseq-bartpho-word.zip`
+
+### Example usage
+
+```python
+from fairseq.models.bart import BARTModel  
+
+#Load BARTpho-syllable model:  
+model_folder_path = '/PATH-TO-FOLDER/fairseq-bartpho-syllable/'  
+spm_model_path = '/PATH-TO-FOLDER/fairseq-bartpho-syllable/sentence.bpe.model'  
+bartpho_syllable = BARTModel.from_pretrained(model_folder_path, checkpoint_file='model.pt', bpe='sentencepiece', sentencepiece_model=spm_model_path).eval()
+#Input syllable-level/raw text:  
+sentence = 'Chúng tôi là những nghiên cứu viên.'  
+#Apply SentencePiece to the input text
+tokenIDs = bartpho_syllable.encode(sentence, add_if_not_exist=False)
+#Extract features from BARTpho-syllable
+last_layer_features = bartpho_syllable.extract_features(tokenIDs)
+
+##Load BARTpho-word model:  
+model_folder_path = '/PATH-TO-FOLDER/fairseq-bartpho-word/'  
+bpe_codes_path = '/PATH-TO-FOLDER/fairseq-bartpho-word/bpe.codes'  
+bartpho_word = BARTModel.from_pretrained(model_folder_path, checkpoint_file='model.pt', bpe='fastbpe', bpe_codes=bpe_codes_path).eval()
+#Input word-level text:  
+sentence = 'Chúng_tôi là những nghiên_cứu_viên .'  
+#Apply BPE to the input text
+tokenIDs = bartpho_word.encode(sentence, add_if_not_exist=False)
+#Extract features from BARTpho-word
+last_layer_features = bartpho_word.extract_features(tokenIDs)
+```
 
 ## <a name="notes"></a> Notes
 
