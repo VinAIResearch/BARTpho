@@ -39,10 +39,10 @@ The general architecture and experimental results of BARTpho can be found in our
 
 ### Pre-trained models
 
-Model | #params | Input text
----|---|---
-`vinai/bartpho-syllable` | 396M | Syllable level
-`vinai/bartpho-word` | 420M | Word level
+Model | #params | Arch. | Max length | Input text
+---|---|---|---|---
+`vinai/bartpho-syllable` | 396M | large | 1024 | Syllable level
+`vinai/bartpho-word` | 420M | large | 1024 | Word level
 
 ### Example usage
 
@@ -51,7 +51,7 @@ import torch
 from transformers import AutoModel, AutoTokenizer
 
 #BARTpho-syllable
-syllable_tokenizer = AutoTokenizer.from_pretrained("vinai/bartpho-syllable", use_fast=False)
+syllable_tokenizer = AutoTokenizer.from_pretrained("vinai/bartpho-syllable")
 bartpho_syllable = AutoModel.from_pretrained("vinai/bartpho-syllable")
 TXT = 'Chúng tôi là những nghiên cứu viên.'  
 input_ids = syllable_tokenizer(TXT, return_tensors='pt')['input_ids']
@@ -68,7 +68,7 @@ values, predictions = probs.topk(5)
 print(syllable_tokenizer.decode(predictions).split())
 
 #BARTpho-word
-word_tokenizer = AutoTokenizer.from_pretrained("vinai/bartpho-word", use_fast=False)
+word_tokenizer = AutoTokenizer.from_pretrained("vinai/bartpho-word")
 bartpho_word = AutoModel.from_pretrained("vinai/bartpho-word")
 TXT = 'Chúng_tôi là những nghiên_cứu_viên .'  
 input_ids = word_tokenizer(TXT, return_tensors='pt')['input_ids']
