@@ -33,7 +33,7 @@ cd transformers
 pip install -e .
 ```
 
-- Note that previously we successfully merged a slow tokenizer for BARTpho into the main `transformers` branch. The process of merging a fast tokenizer for BARTpho is in the discussion, as detailed in [this pull request](https://github.com/huggingface/transformers/pull/17254). While waiting for this pull request's approval, if users would like to experiment with the fast tokenizer, you might install `transformers` as follows:
+- Note that previously we successfully merged a slow tokenizer for BARTpho into the main `transformers` branch. The process of merging a fast tokenizer for BARTpho is in the discussion, as detailed in [this pull request](https://github.com/huggingface/transformers/pull/17254). While waiting for this pull request's approval, if users would like to experiment with the fast tokenizer, the users might install `transformers` as follows:
 
 ```
 git clone --single-branch --branch fast_tokenizers_BARTpho_PhoBERT_BERTweet https://github.com/datquocnguyen/transformers.git
