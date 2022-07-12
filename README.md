@@ -11,12 +11,11 @@ Two BARTpho versions `BARTpho-syllable` and `BARTpho-word` are the first public 
 
 The general architecture and experimental results of BARTpho can be found in our [paper](https://arxiv.org/abs/2109.09701):
 
-	@article{bartpho,
-	title     = {{BARTpho: Pre-trained Sequence-to-Sequence Models for Vietnamese}},
-	author    = {Nguyen Luong Tran and Duong Minh Le and Dat Quoc Nguyen},
-	journal   = {arXiv preprint},
-	volume    = {arXiv:2109.09701},
-	year      = {2021}
+	@inproceedings{bartpho,
+	    title     = {{BARTpho: Pre-trained Sequence-to-Sequence Models for Vietnamese}},
+	    author    = {Nguyen Luong Tran and Duong Minh Le and Dat Quoc Nguyen},
+	    booktitle = {Proceedings of the 23rd Annual Conference of the International Speech Communication Association},
+	    year      = {2022}
 	}
 
 **Please CITE** our paper when BARTpho is used to help produce published results or incorporated into other software.
