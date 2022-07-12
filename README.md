@@ -117,7 +117,7 @@ last_layer_features = bartpho_word.extract_features(tokenIDs)
 ## <a name="notes"></a> Notes
 
 -  Before fine-tuning BARTpho on a downstream task, users should perform Vietnamese tone normalization on the downstream task's data as this pre-process was also applied to the pre-training corpus. A Python script for Vietnamese tone normalization is available at [HERE](https://github.com/VinAIResearch/BARTpho/blob/main/VietnameseToneNormalization.md).
-- For `BARTpho-word`, users should [use VnCoreNLP to segment input raw texts](https://github.com/VinAIResearch/PhoBERT#vncorenlp) as it was used to perform both Vietnamese tone normalization and word segmentation on the pre-training corpus. 
+- For `BARTpho-word`, users should use [VnCoreNLP](https://github.com/vncorenlp/VnCoreNLP) to segment input raw texts as it was used to perform both Vietnamese tone normalization and word segmentation on the pre-training corpus. 
 
 
 ## License
