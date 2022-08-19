@@ -39,6 +39,7 @@ pip install -e .
 
 Model | #params | Arch. | Max length | Input text
 ---|---|---|---|---
+`vinai/bartpho-base-syllable` | 132M | base | 1024 | Syllable level
 `vinai/bartpho-syllable` | 396M | large | 1024 | Syllable level
 `vinai/bartpho-word` | 420M | large | 1024 | Word level
 
