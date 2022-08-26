@@ -65,9 +65,6 @@ input_ids = word_tokenizer(TXT, return_tensors='pt')['input_ids']
 features = bartpho_word(input_ids)
 ```
 
-- Following mBART, BARTpho uses the "large" architecture of BART with an additional layer-normalization layer on top of both the encoder and decoder. Thus, when converted to be used with `transformers`, BARTpho can be called via mBART-based classes.
-
-
 ## <a name="fairseq"></a> Using BARTpho in [`fairseq`](https://github.com/pytorch/fairseq)
 
 ### Installation
