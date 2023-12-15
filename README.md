@@ -39,10 +39,10 @@ pip install -e .
 
 Model | #params | Arch. | Max length | Input text
 ---|---|---|---|---
-`vinai/bartpho-syllable-base` | 132M | base | 1024 | Syllable level
-`vinai/bartpho-syllable` | 396M | large | 1024 | Syllable level
-`vinai/bartpho-word-base` | 150M | base | 1024 | Word level
-`vinai/bartpho-word` | 420M | large | 1024 | Word level
+[`vinai/bartpho-syllable-base`](https://huggingface.co/vinai/bartpho-syllable-base) | 132M | base | 1024 | Syllable level
+[`vinai/bartpho-syllable`](https://huggingface.co/vinai/bartpho-syllable) | 396M | large | 1024 | Syllable level
+[`vinai/bartpho-word-base`](https://huggingface.co/vinai/bartpho-word-base) | 150M | base | 1024 | Word level
+[`vinai/bartpho-word`](https://huggingface.co/vinai/bartpho-word) | 420M | large | 1024 | Word level
 
 ### Example usage
 
