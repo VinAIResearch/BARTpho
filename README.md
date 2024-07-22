@@ -123,7 +123,7 @@ last_layer_features = bartpho_word.extract_features(tokenIDs)
     
     MIT License
 
-    Copyright (c) 2021 VinAI Research
+    Copyright (c) 2021 VinAI
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
